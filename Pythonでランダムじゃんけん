@@ -1,0 +1,41 @@
+import random
+
+def validate(hand):
+    if hand < 0 or hand > 2:
+        return False
+    return True
+
+def print_hand(hand, name='ゲスト'):
+    hands = ['グー', 'チョキ', 'パー']
+    print(f"{name}は{hands[hand]}を出しました")
+
+def judge(player, computer):
+    if player == computer:
+        return '引き分け'
+    elif (player == 0 and computer == 1) or \
+         (player == 1 and computer == 2) or \
+         (player == 2 and computer == 0):
+        return '勝ち'
+    else:
+        return '負け'
+
+# プレイヤー入力
+print('じゃんけんをはじめます')
+player_name = input('名前を入力してください：')
+player_hand = int(input('何を出しますか？（0:グー,1:チョキ,2:パー）：'))
+
+if validate(player_hand):
+    # CPU3人分の手をランダムで作成
+    cpu_names = ['CPU1','CPU2','CPU3']
+    cpu_hands = [random.randint(0,2) for _ in range(3)]
+
+    # プレイヤーの手を表示
+    print_hand(player_hand, player_name if player_name else 'ゲスト')
+
+    # CPUの手を表示＆勝敗判定
+    for name, hand in zip(cpu_names, cpu_hands):
+        print_hand(hand, name)
+        result = judge(player_hand, hand)
+        print(f"対{name}の結果は{result}でした")
+else:
+    print('正しい数値を入力してください')
