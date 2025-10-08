@@ -1,41 +1,63 @@
-import random
+import random  
+#関数なのでreturnで処理
+⭐️　関数内のifで
 
-def validate(hand):
+#関数のifかここで終わる
+def validate(hand):　
     if hand < 0 or hand > 2:
         return False
     return True
-
+---------------------------------------------------------------------------------
+⭐️ゲストの結果の関数
 def print_hand(hand, name='ゲスト'):
     hands = ['グー', 'チョキ', 'パー']
-    print(f"{name}は{hands[hand]}を出しました")
-
+    print(name + 'は' + hands[hand] + 'を出しました')
+------------------------------------------------------------------------------------
+⭐️じゃんけんのルールを決めてた
 def judge(player, computer):
+#judge以外の名前でもいい
     if player == computer:
         return '引き分け'
-    elif (player == 0 and computer == 1) or \
-         (player == 1 and computer == 2) or \
-         (player == 2 and computer == 0):
+    elif player == 0 and computer == 1:
+        return '勝ち'
+    elif player == 1 and computer == 2:
+        return '勝ち'
+    elif player == 2 and computer == 0:
         return '勝ち'
     else:
         return '負け'
-
-# プレイヤー入力
-print('じゃんけんをはじめます')
+----------------------------------------------------------------------------------
+⭐️最初の画面表示
+print('じゃんけんをはじめます')　　　　　　　　　　　　　　　　　　　
 player_name = input('名前を入力してください：')
-player_hand = int(input('何を出しますか？（0:グー,1:チョキ,2:パー）：'))
+print('何を出しますか？（0: グー, 1: チョキ, 2: パー）')
+player_hand = int(input('数字で入力してください：'))
+----------------------------------------------------------------------------------
 
+
+#ここで一番上の関数の結果でTureならelse Falseなら下で処理
+⭐️相手の出す値が正しいならcomputer_handまで処理
 if validate(player_hand):
-    # CPU3人分の手をランダムで作成
-    cpu_names = ['CPU1','CPU2','CPU3']
-    cpu_hands = [random.randint(0,2) for _ in range(3)]
+    computer_hand = random.randint(0, 2) 
+#ランダムで0〜2を選ぶ
 
-    # プレイヤーの手を表示
-    print_hand(player_hand, player_name if player_name else 'ゲスト')
-
-    # CPUの手を表示＆勝敗判定
-    for name, hand in zip(cpu_names, cpu_hands):
-        print_hand(hand, name)
-        result = judge(player_hand, hand)
-        print(f"対{name}の結果は{result}でした")
+-------------------------------------------------------------------------------------
+⭐️ifで名前有りとなしの条件を分ける
+if player_name == '':
+        print_hand(player_hand)
+    else:
+        print_hand(player_hand, player_name)
+    ⭐️コンピュータ処理
+   print_hand(computer_hand, 'コンピューター')
+------------------------------------------------------------------------------------
+⭐️judge関数の処理
+    result = judge(player_hand, computer_hand)
+    print('結果は' + result + 'でした')
+-----------------------------------------------------------------------------------
+⭐️def validate(hand):のFalseの結果処理
 else:
     print('正しい数値を入力してください')
+
+
+
+
