@@ -1,6 +1,6 @@
 import random  
 #関数なのでreturnで処理
-⭐️　関数内のifで
+⭐️　関数内のifで 
 
 #関数のifかここで終わる
 def validate(hand):　
