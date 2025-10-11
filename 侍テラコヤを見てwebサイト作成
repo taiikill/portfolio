@@ -1,0 +1,129 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>5章課題</title>
+    <meta name="description" content="このページは5章の課題です。">
+    <style>
+        p { color: red; }
+        #countdown {
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+
+        }
+        #player {
+            display: none;
+            margin: 0 auto;
+            display: block;
+        }
+        form { margin-top: 20px; }
+        input, select, textarea { margin-bottom: 10px; display:block; }
+
+        /* 横並びラジオボタン */
+        .gender-options {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+  <header> 
+    <nav>
+      <h1>始めまして、こんにちは！</h1>
+      <a href="https://weathernews.jp/onebox/tenki/okinawa/">沖縄の天気</a>
+      <a href="https://www.nikkei.com/article/DGXZQOUC025HA0S5A001C2000000/">最新ニュース</a>
+      <a href="https://losangelesdodgers-fanclub.jp/">ドジャースファンクラブ</a>    
+      <a href="https://tech-camp.in/note/pickup/55607/">最新ITテクノロジー</a>
+      <h1>注意⚠️動画を見るときは</h1>
+      <p>以下の事に答えてください</p>
+
+      <form action="https://formspree.io/f/XXXXXXX" method="POST">
+        <label>名前</label>
+        <input type="text" name="name" placeholder="名前を入力してください" required>
+
+        <label>メールアドレス</label>
+        <input type="email" name="email" placeholder="example@mail.com" required>
+
+        <label>年齢</label>
+        <select name="age">
+          <option>10代以下</option>
+          <option>20代以下</option>
+          <option>30代以下</option>
+          <option>40代以上</option>
+        </select>
+
+        <label>性別</label>
+        <div class="gender-options">
+          <label><input type="radio" name="gender" value="男性">男性</label>
+          <label><input type="radio" name="gender" value="女性">女性</label>
+          <label><input type="radio" name="gender" value="その他">その他</label>
+        </div>
+
+        <label>最近のIT用語</label>
+        <input type="text" name="itword" placeholder="量子コンピュータ">
+
+        <label>どこで知った？</label>
+        <textarea name="reason"></textarea>
+
+        <label>個人情報保護方針に同意する</label>
+        <input type="checkbox" name="agree" required>
+
+        <input type="submit" value="送信">
+        <input type="reset" value="リセット">
+      </form>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <section>
+        <h2>動画紹介</h2>
+        <p>初心者向けLinuxについての動画になります!!</p>
+
+        <!-- カウントダウン表示 -->
+        <div id="countdown">60</div>
+
+        <!-- YouTube埋め込み -->
+        <iframe id="player" width="640" height="360"
+          src="https://www.youtube.com/embed/IDIDa8HKOW4?start=503&enablejsapi=1"
+          frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+        </iframe>
+
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <p></p>
+  </footer>
+
+  <!-- カウントダウン JS -->
+  <script>
+    let countdownNumber = 60;
+    const countdownElement = document.getElementById('countdown');
+    const player = document.getElementById('player');
+
+    const countdownInterval = setInterval(() => {
+      countdownNumber--;
+      if (countdownNumber > 0) {
+        countdownElement.textContent = countdownNumber;
+      } else {
+        clearInterval(countdownInterval);
+        countdownElement.style.display = 'none'; // カウントダウン非表示
+        player.style.display = 'block';          // 動画表示
+        player.src += "&autoplay=1";             // 自動再生
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
