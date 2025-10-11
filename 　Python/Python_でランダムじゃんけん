@@ -1,8 +1,11 @@
-　import random  
-#関数なのでreturnで処理
-⭐️　関数内のifで 　
-　
-#関数のifかここで終わる
+⭐️全体の説明
+#分かりにくいコード説明
+ 
+ 
+ ⭐️randomモジュールを読み込ませるのがimport
+ 　import random  
+----------------------------------------------------------------------------------
+#関数なのでreturnで処理　
 def validate(hand):　
     if hand < 0 or hand > 2:
         return False
@@ -13,7 +16,8 @@ def print_hand(hand, name='ゲスト'):
     hands = ['グー', 'チョキ', 'パー']
     print(name + 'は' + hands[hand] + 'を出しました')
 ------------------------------------------------------------------------------------
-⭐️じゃんけんのルールを決めてた
+⭐️じゃんけんのルールを決める
+
 def judge(player, computer):
 #judge以外の名前でもいい
     if player == computer:
@@ -38,6 +42,7 @@ player_hand = int(input('数字で入力してください：'))
 #ここで一番上の関数の結果でTureならelse Falseなら下で処理
 ⭐️相手の出す値が正しいならcomputer_handまで処理
 if validate(player_hand):
+                  #モジュール名 関数なので名前は変えたれない
     computer_hand = random.randint(0, 2) 
 #ランダムで0〜2を選ぶ
 
@@ -51,7 +56,13 @@ if player_name == '':
    print_hand(computer_hand, 'コンピューター')
 ------------------------------------------------------------------------------------
 ⭐️judge関数の処理
+#二つのresultは同じ意味
+    #judge関数は処理ここで処理
+    
+            #judge(player, computer):の引数が変更された
+    
     result = judge(player_hand, computer_hand)
+    
     print('結果は' + result + 'でした')
 -----------------------------------------------------------------------------------
 ⭐️def validate(hand):のFalseの結果処理
