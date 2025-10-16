@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>じゃんけんゲーム</title>
+<style>
+  body {
+    font-family: "Segoe UI", sans-serif;
+    text-align: center;
+    background: #87CEFA; /* 水色 */
+    padding: 40px;
+  }
+
+  h1 { color: #333; }
+
+  button {
+    font-size: 18px;
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4caf50;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover { background: #45a049; }
+
+  #result {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  #hand-img {
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+  }
+</style>
+</head>
+<body>
+
+<h1>じゃんけんゲーム</h1>
+
+<p>名前を入力してください：</p>
+<input type="text" id="playerName" placeholder="ゲスト">
+
+<p>何を出しますか？</p>
+<button onclick="play(0)">グー</button>
+<button onclick="play(1)">チョキ</button>
+<button onclick="play(2)">パー</button>
+
+<div id="result"></div>
+
+<img id="hand-img" src="s.png" alt="あなたの手">
+
+<script>
+const hands = ['グー', 'チョキ', 'パー'];
+const imgUrls = ['s.png', 's.png', 's.png'];
+
+function play(playerHand) {
+  const playerName = document.getElementById('playerName').value || 'ゲスト';
+  const computerHand = Math.floor(Math.random() * 3);
+
+  // 画像更新
+  document.getElementById('hand-img').src = imgUrls[playerHand];
+  document.getElementById('hand-img').alt = hands[playerHand];
+
+  // 勝敗判定と色設定
+  let resultText = '';
+  let resultColor = 'black';
+
+  if (playerHand === computerHand) {
+    resultText = '引き分け';
+    resultColor = 'black';
+  } else if (
+    (playerHand === 0 && computerHand === 1) ||
+    (playerHand === 1 && computerHand === 2) ||
+    (playerHand === 2 && computerHand === 0)
+  ) {
+    resultText = '勝ち';
+    resultColor = 'yellow';
+  } else {
+    resultText = '負け';
+    resultColor = 'red';
+  }
+
+  document.getElementById('result').innerHTML = `
+    ${playerName}は${hands[playerHand]}を出しました。<br>
+    コンピューターは${hands[computerHand]}を出しました。<br>
+    結果は<span style="color:${resultColor};">${resultText}でした！</span>
+  `;
+}
+</script>
+
+</body>
+</html>
