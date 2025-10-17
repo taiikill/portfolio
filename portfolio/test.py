@@ -16,8 +16,8 @@ HTML = """
     text-align: center;
     background: #87CEFA;
     padding: 40px;
+    color: #333;
   }
-  h1 { color: #333; }
   button {
     font-size: 18px;
     margin: 10px;
@@ -55,9 +55,11 @@ HTML = """
 </form>
 
 {% if playerHand is not none %}
-  <img id="hand-img" src="{{ url_for('static', filename=imgUrl) }}" alt="あなたの手">
-  <div id="result" style="color: {{ color }}">
-    {{ resultText | safe }}
+  <div>
+    <p>{{ playerName }}は{{ hands[playerHand] }}を出しました。</p>
+    <p>コンピューターは{{ hands[computerHand] }}を出しました。</p>
+    <p id="result">結果は <span style="color: {{ color }};">{{ result }}</span> でした！</p>
+    <img id="hand-img" src="{{ url_for('static', filename='s.png') }}" alt="あなたの手">
   </div>
 {% endif %}
 
@@ -65,28 +67,21 @@ HTML = """
 </html>
 """
 
-imgUrls = [
-    "gu.png",    # グー
-    "choki.png", # チョキ
-    "pa.png"     # パー
-]
-
 hands = ['グー', 'チョキ', 'パー']
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     playerHand = None
-    resultText = ""
+    result = ""
     color = "black"
-    imgUrl = ""
+    playerName = "ゲスト"
+    computerHand = None
 
     if request.method == "POST":
         playerHand = int(request.form["hand"])
         computerHand = random.randint(0, 2)
         playerName = request.form.get("playerName") or "ゲスト"
         
-        imgUrl = imgUrls[playerHand]
-
         # 勝敗判定
         if playerHand == computerHand:
             result = "引き分け"
@@ -98,13 +93,15 @@ def index():
             result = "負け"
             color = "red"
 
-        resultText = f"{playerName}は{hands[playerHand]}を出しました。<br>コンピューターは{hands[computerHand]}を出しました。<br>結果は{result}でした！"
-
     return render_template_string(
         HTML,
         playerHand=playerHand,
-        resultText=resultText,
+        computerHand=computerHand,
+        result=result,
         color=color,
-        imgUrl=imgUrl
+        hands=hands,
+        playerName=playerName
     )
 
+if __name__ == "__main__":
+    app.run(debug=True)
