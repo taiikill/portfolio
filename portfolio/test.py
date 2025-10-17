@@ -37,7 +37,7 @@ HTML = """
   #hand-img {
     margin-top: 20px;
     width: 150px;
-    height: 150px;
+    height: auto; /* ← 形を保つ */
   }
 </style>
 </head>
@@ -49,9 +49,15 @@ HTML = """
 <form method="POST">
   <input type="text" name="playerName" placeholder="ゲスト">
   <p>何を出しますか？</p>
-  <button type="submit" name="hand" value="0">グー</button>
-  <button type="submit" name="hand" value="1">チョキ</button>
-  <button type="submit" name="hand" value="2">パー</button>
+
+  <!-- ✅ 画像を常に表示 -->
+  <img id="hand-img" src="{{ url_for('static', filename='s.png') }}" alt="あなたの手">
+
+  <div>
+    <button type="submit" name="hand" value="0">グー</button>
+    <button type="submit" name="hand" value="1">チョキ</button>
+    <button type="submit" name="hand" value="2">パー</button>
+  </div>
 </form>
 
 {% if playerHand is not none %}
@@ -59,7 +65,6 @@ HTML = """
     <p>{{ playerName }}は{{ hands[playerHand] }}を出しました。</p>
     <p>コンピューターは{{ hands[computerHand] }}を出しました。</p>
     <p id="result">結果は <span style="color: {{ color }};">{{ result }}</span> でした！</p>
-    <img id="hand-img" src="{{ url_for('static', filename='s.png') }}" alt="あなたの手">
   </div>
 {% endif %}
 
