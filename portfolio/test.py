@@ -2,7 +2,7 @@ from flask import Flask, render_template_string, request, url_for
 import random
 
 app = Flask(__name__)
-
+　
 HTML = """
 <!DOCTYPE html>
 <html lang="ja">
